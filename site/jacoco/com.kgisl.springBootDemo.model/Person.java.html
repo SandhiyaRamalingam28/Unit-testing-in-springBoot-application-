@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Person.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">springBootDemo</a> &gt; <a href="index.source.html" class="el_package">com.kgisl.springBootDemo.model</a> &gt; <span class="el_source">Person.java</span></div><h1>Person.java</h1><pre class="source lang-java linenums">package com.kgisl.springBootDemo.model;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = &quot;personDetails&quot;)
+<span class="fc" id="L9">public class Person {</span>
+    @Id
+    int id;
+    String name;
+    String email;
+    int phoneNumber;
+
+    public int getId() {
+<span class="nc" id="L17">        return id;</span>
+    }
+    public void setId(int id) {
+<span class="nc" id="L20">        this.id = id;</span>
+<span class="nc" id="L21">    }</span>
+    public String getName() {
+<span class="nc" id="L23">        return name;</span>
+    }
+    public void setName(String name) {
+<span class="nc" id="L26">        this.name = name;</span>
+<span class="nc" id="L27">    }</span>
+    public String getEmail() {
+<span class="nc" id="L29">        return email;</span>
+    }
+    public void setEmail(String email) {
+<span class="nc" id="L32">        this.email = email;</span>
+<span class="nc" id="L33">    }</span>
+    public int getPhoneNumber() {
+<span class="nc" id="L35">        return phoneNumber;</span>
+    }
+    public void setPhoneNumber(int phoneNumber) {
+<span class="nc" id="L38">        this.phoneNumber = phoneNumber;</span>
+<span class="nc" id="L39">    }</span>
+    @Override
+    public String toString() {
+<span class="fc" id="L42">        return &quot;Person [id=&quot; + id + &quot;, name=&quot; + name + &quot;, email=&quot; + email + &quot;, phoneNumber=&quot; + phoneNumber + &quot;]&quot;;</span>
+    }
+    
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

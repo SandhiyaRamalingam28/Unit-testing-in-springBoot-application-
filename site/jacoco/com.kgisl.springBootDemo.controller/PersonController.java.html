@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PersonController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">springBootDemo</a> &gt; <a href="index.source.html" class="el_package">com.kgisl.springBootDemo.controller</a> &gt; <span class="el_source">PersonController.java</span></div><h1>PersonController.java</h1><pre class="source lang-java linenums">package com.kgisl.springBootDemo.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+
+import com.kgisl.springBootDemo.model.Person;
+import com.kgisl.springBootDemo.repository.PersonRepository;
+import com.kgisl.springBootDemo.service.PersonService;
+
+@RestController
+<span class="fc" id="L27">public class PersonController {</span>
+
+    @Autowired
+    PersonRepository personRepository;
+
+    @Autowired
+    PersonService personService;
+
+    @GetMapping(&quot;/person&quot;)
+    public @ResponseBody ResponseEntity&lt;List&lt;Person&gt;&gt; getAll() {
+<span class="fc" id="L37">        return new ResponseEntity&lt;&gt;(personService.getPersonDetails(), HttpStatus.OK);</span>
+    }
+
+    @GetMapping(&quot;/getAllDetails&quot;)
+    public List&lt;Person&gt; getAllDetails() {
+<span class="nc" id="L42">        List&lt;Person&gt; person = new ArrayList&lt;Person&gt;();</span>
+<span class="nc" id="L43">        personRepository.findAll().forEach(person1 -&gt; person.add(person1));</span>
+<span class="nc" id="L44">        return person;</span>
+
+    }
+
+    @GetMapping(value = &quot;/personId/{id}&quot;)
+    public ResponseEntity&lt;Person&gt; getTeamById(@PathVariable(&quot;id&quot;) int id) {
+<span class="fc" id="L50">        Person user = personService.findByPersonId(id);</span>
+<span class="pc bpc" id="L51" title="1 of 2 branches missed.">        if (user == null) {</span>
+<span class="fc" id="L52">            return new ResponseEntity&lt;&gt;(HttpStatus.NOT_FOUND);</span>
+        }
+<span class="nc" id="L54">        return new ResponseEntity&lt;&gt;(user, HttpStatus.OK);</span>
+    }
+
+    @PostMapping(value = &quot;/person&quot;, headers = &quot;Accept=application/json&quot;)
+    public ResponseEntity&lt;Person&gt; createPerson(@RequestBody Person person) {
+<span class="fc" id="L59">        Person actualBook = personService.createPerson(person);</span>
+<span class="fc" id="L60">        HttpHeaders headers = new HttpHeaders();</span>
+<span class="fc" id="L61">        return new ResponseEntity&lt;&gt;(actualBook, headers, HttpStatus.CREATED);</span>
+    }
+
+    @PutMapping(value = &quot;/personDetailsBy/{id}&quot;, headers = &quot;Accept=application/json&quot;)
+    public ResponseEntity&lt;Person&gt; updateUser(@PathVariable(&quot;id&quot;) int id, @RequestBody Person person) {
+<span class="fc" id="L66">        Person persons=personService.updatePerson(id,person);</span>
+<span class="fc" id="L67">        return new ResponseEntity&lt;&gt;(persons,HttpStatus.OK);</span>
+    }
+
+    @DeleteMapping(value = &quot;/person/{id}&quot;, headers = &quot;Accept=application/json&quot;)
+    public ResponseEntity&lt;Person&gt; deleteUser(@PathVariable(&quot;id&quot;) int id) {
+<span class="fc" id="L72">        Person user = personService.findByPersonId(id);</span>
+<span class="pc bpc" id="L73" title="1 of 2 branches missed.">       if (user == null) {</span>
+<span class="nc" id="L74">           return new ResponseEntity&lt;&gt;(HttpStatus.NOT_FOUND);</span>
+       }
+<span class="fc" id="L76">       personService.deletePersonById(id);</span>
+<span class="fc" id="L77">       return new ResponseEntity&lt;&gt;(HttpStatus.NO_CONTENT);</span>
+    }
+
+
+    //Query method
+    @GetMapping(&quot;/queryName/{name}&quot;)
+    public ResponseEntity&lt;?&gt; findByName(@PathVariable(&quot;name&quot;) String name) {
+<span class="nc" id="L84">        return new ResponseEntity&lt;&gt;(personRepository.findByName(name), HttpStatus.OK);</span>
+    }
+
+    @GetMapping(value = &quot;/findByNameCount/{name}&quot;)
+    public ResponseEntity&lt;?&gt; findByNameCount(@PathVariable(&quot;name&quot;) String name) {
+<span class="nc" id="L89">        return new ResponseEntity&lt;&gt;(personRepository.findByNameCount(name), HttpStatus.OK);</span>
+
+    }
+
+    @GetMapping(value = &quot;/findByCount/&quot;)
+    public ResponseEntity&lt;?&gt; findByCount() {
+<span class="nc" id="L95">        return new ResponseEntity&lt;&gt;(personRepository.findByCount(), HttpStatus.OK);</span>
+
+    }
+
+    //derived query method
+    @GetMapping(value = &quot;/personByEmail/{email}&quot;)
+    public ResponseEntity&lt;?&gt; findByEmail(@PathVariable(&quot;email&quot;) String email) {
+        try {
+<span class="nc" id="L103">            Person user = personRepository.findByEmail(email);</span>
+
+<span class="nc bnc" id="L105" title="All 2 branches missed.">            if (user == null) {</span>
+<span class="nc" id="L106">                return new ResponseEntity&lt;&gt;(HttpStatus.NO_CONTENT);</span>
+            }
+<span class="nc" id="L108">            return new ResponseEntity&lt;&gt;(user, HttpStatus.OK);</span>
+<span class="nc" id="L109">        } catch (Exception e) {</span>
+<span class="nc" id="L110">            return new ResponseEntity&lt;&gt;(HttpStatus.INTERNAL_SERVER_ERROR);</span>
+        }
+    }
+
+    // only sorting
+    @GetMapping(&quot;/person/{field}&quot;)
+    public ResponseEntity&lt;List&lt;Person&gt;&gt; getSortedBy(@PathVariable String field) {
+<span class="nc" id="L117">        List&lt;Person&gt; getSize = personRepository.findAll(Sort.by(Sort.Direction.DESC, field));</span>
+<span class="nc" id="L118">        return new ResponseEntity&lt;&gt;(getSize, HttpStatus.OK);</span>
+    }
+
+    // only pagination
+    @GetMapping(&quot;/person/pagination/{offSet}/{pageSize}&quot;)
+    public ResponseEntity&lt;Page&lt;Person&gt;&gt; getDetailsWithPagination(@PathVariable int offSet, @PathVariable int pageSize) {
+<span class="nc" id="L124">        Page&lt;Person&gt; person = personRepository.findAll(PageRequest.of(offSet, pageSize));</span>
+<span class="nc" id="L125">        return new ResponseEntity&lt;&gt;(person, HttpStatus.ACCEPTED);</span>
+
+    }
+
+    // sorting and pagination
+    @GetMapping(&quot;/person/PaginationAndSorting/{offSet}/{pageSize}/{field}&quot;)
+    public ResponseEntity&lt;Page&lt;Person&gt;&gt; getDetailsWithPaginationAndSorting(@PathVariable int offSet,
+            @PathVariable int pageSize, @PathVariable String field) {
+<span class="nc" id="L133">        Page&lt;Person&gt; person = personRepository</span>
+<span class="nc" id="L134">                .findAll(PageRequest.of(offSet, pageSize).withSort(Sort.by(Sort.Direction.DESC, field)));</span>
+<span class="nc" id="L135">        return new ResponseEntity&lt;&gt;(person, HttpStatus.OK);</span>
+
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
