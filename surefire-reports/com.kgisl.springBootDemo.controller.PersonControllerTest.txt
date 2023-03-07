@@ -1,0 +1,24 @@
+-------------------------------------------------------------------------------
+Test set: com.kgisl.springBootDemo.controller.PersonControllerTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 5, Skipped: 0, Time elapsed: 0.823 s <<< FAILURE! - in com.kgisl.springBootDemo.controller.PersonControllerTest
+updateBookTest  Time elapsed: 0.693 s  <<< ERROR!
+java.lang.NullPointerException
+	at com.kgisl.springBootDemo.controller.PersonControllerTest.updateBookTest(PersonControllerTest.java:79)
+
+createBookTest  Time elapsed: 0 s  <<< ERROR!
+java.lang.NullPointerException
+	at com.kgisl.springBootDemo.controller.PersonControllerTest.createBookTest(PersonControllerTest.java:71)
+
+allTest  Time elapsed: 0.006 s  <<< ERROR!
+java.lang.NullPointerException
+	at com.kgisl.springBootDemo.controller.PersonControllerTest.allTest(PersonControllerTest.java:54)
+
+deleteBookTest  Time elapsed: 0.002 s  <<< ERROR!
+java.lang.NullPointerException
+	at com.kgisl.springBootDemo.controller.PersonControllerTest.deleteBookTest(PersonControllerTest.java:90)
+
+getBookByIdTest  Time elapsed: 0.002 s  <<< ERROR!
+java.lang.NullPointerException
+	at com.kgisl.springBootDemo.controller.PersonControllerTest.getBookByIdTest(PersonControllerTest.java:64)
+

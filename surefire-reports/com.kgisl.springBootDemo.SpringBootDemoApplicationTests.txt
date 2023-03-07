@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.kgisl.springBootDemo.SpringBootDemoApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.717 s - in com.kgisl.springBootDemo.SpringBootDemoApplicationTests
